@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Week 3 Map: PA Cities</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+  <div id="map" style="width: 800px; height: 500px;"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([40.15215124673675, -76.58818117908795], 8);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+}).addTo(map);
+//L.map is used to create the map that the rest of the code will work on. It is found in map section at the very top of the Leaflet documentation. I adjusted the center and zoom to focus on southeastern PA where Harrisburg and Lancaster are located.
+  var Harris = {
+    name: 'Harrisburg',
+    lat: 40.274881219933604,
+    lng: -76.88531424759049,
+    population: 50099
+  }
+  var Lanc = {
+    name: 'Lancaster',
+    lat: 40.04044435300361, 
+    lng: -76.3058759867981,
+    population: 58039
+  };
+    L.circle([Harris.lat, Harris.lng],{
+      radius: (Harris.population)/10,
+      color: 'gold',
+      fillColor: 'blue',
+      weight: 5
+      //L.circle is used to make circles on the map and is found in the circle section of the Leaflet documentation. For the radius I removed Math.sqrt, which takes the square root of number property and can be found under JavaScript Math.sqrt() on w3schools.com, to make the circles for Harrisburg and Lancaster more visible on the map.
+
+      }).bindTooltip ("<b>" + 'Name: ' + "</b>" + "<i>" + Harris.name + "</i>" + "<br>" + "<b>" + 'Population: ' + "</b>" + "<i>" + Harris.population + "<i>")
+    .addTo(map);
+    //.bindTooltip is found in the Leaflet documentation under L.circle, but comes originally from the layer section. "<i>" and "</i>" are used to make the text between them italicized. I found this under HTML <i> Tag on w3schools.com.
+
+    L.circle([Lanc.lat, Lanc.lng],{
+      radius: (Lanc.population)/10,
+      color: 'red',
+      fillColor: 'blue',
+      weight: 5
+
+      }).bindTooltip ("<b>" + 'Name: ' + "</b>" + "<i>" + Lanc.name + "</i>" + "<br>" + "<b>" + 'Population: ' + "</b>" + "<i>" + Lanc.population + "<i>")
+    .addTo(map);
+  </script>
+</body>
+</html>
